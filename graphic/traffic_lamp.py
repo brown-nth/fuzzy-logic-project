@@ -89,8 +89,8 @@ class TrafficLamp(pygame.sprite.Sprite):
 
     # Realign the map
     def update(self, cam_x, cam_y):
-        self.rect.center = self.x - cam_x + 600, self.y - cam_y + 300
-        self.remaining_time -= 1
+        # self.rect.center = self.x - cam_x + 600, self.y - cam_y + 300
+        self.remaining_time -= 10
         if self.remaining_time == 0:
             self.switch_status()
 

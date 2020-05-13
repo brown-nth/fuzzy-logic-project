@@ -19,7 +19,9 @@ class Map(pygame.sprite.Sprite):
         self.map_number = map_number
         image_temp = "map" + str(map_number) + ".png"
         self.get_map_navs()
-        self.image = load_image(image_temp)
+        self.image = load_image(image_temp,False)
+        # self.image = pygame.transform.scale(self.image, (1200, 600))
+
         self.rect = self.image.get_rect()
         self.x = init_x
         self.y = init_y
@@ -29,7 +31,7 @@ class Map(pygame.sprite.Sprite):
         self.rect.topleft = self.x - cam_x + 600, self.y - cam_y + 300
 
     def get_map_navs(self):
-        with xlrd.open_workbook('../media/toa-do.xlsx') as book:
+        with xlrd.open_workbook('media/toa-do.xlsx') as book:
             sheet = book.sheet_by_index(self.map_number - 1)
 
             x_coordinate = [x for x in sheet.col_values(1)]

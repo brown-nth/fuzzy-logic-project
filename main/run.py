@@ -1,6 +1,7 @@
 import random
 import sys
-
+sys.path.append("/Users/brown/code/fuzzy-logic-project")
+ 
 import graphic.camera as camera
 import graphic.maps as maps
 import pygame
@@ -13,8 +14,12 @@ from graphic.car import calculate_angle
 
 
 def main():
-    clock = pygame.time.Clock()
+    # Loop until the user clicks the close button.
     running = True
+    
+    # Used to manage how fast the screen updates
+    clock = pygame.time.Clock()
+
 
     cam = camera.Camera()
 
@@ -42,6 +47,7 @@ def main():
     # print("Finish index: ", maps.FINISH_INDEX)
 
     controlled_car = car.Car(start_x, start_y, start_angle)
+
     cars = pygame.sprite.Group()
     cars.add(controlled_car)
 
@@ -56,11 +62,13 @@ def main():
 
     cam.set_pos(controlled_car.x, controlled_car.y)
     flag = 0
+    # -------- Main Program Loop -----------
 
     while running:
         flag += 1
         keys = pygame.key.get_pressed()
 
+        # --- Main event loop
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -99,7 +107,8 @@ def main():
         screen.blit(background, (0, 0))
 
         # update and render map
-        map_s.update(cam.x, cam.y)
+        # map_s.update(start_x, start_y)
+        # map_s.update(cam.x, cam.y)
         map_s.draw(screen)
 
         # update and render traffic lamps
@@ -107,7 +116,7 @@ def main():
         traffic_lamps.update(cam.x, cam.y)
         traffic_lamps.draw(screen)
 
-        stones.update(cam.x, cam.y)
+        # stones.update(cam.x, cam.y)
         stones.draw(screen)
 
         # for lamp in traffic_lamps:
@@ -122,16 +131,31 @@ def main():
         cars.update(cam.x, cam.y, traffic_lamps_status, stone_status, flag)
         cars.draw(screen)
 
+        # --- Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
 
+        # --- Limit to 60 frames per second
         clock.tick(60)
 
-
 if __name__ == "__main__":
-    pygame.init()
 
-    screen = pygame.display.set_mode((1200, 600))
-    pygame.display.set_caption("Self Driving Car")
+ 
+    # Define some colors
+    BLACK = (0, 0, 0)
+    WHITE = (255, 255, 255)
+    GREEN = (0, 255, 0)
+    RED = (255, 0, 0)
+    BLUE = (0, 0, 255)
+    PI = 3.141592653
+
+
+    pygame.init()
+    
+    # Set the width and height of the screen [width, height]
+    size = (3500,2000)
+    screen = pygame.display.set_mode(size)
+    
+    pygame.display.set_caption("My Game")
     pygame.mouse.set_visible(True)
     font = pygame.font.Font(None, 24)
 
@@ -148,3 +172,4 @@ if __name__ == "__main__":
 
     pygame.quit()
     sys.exit(0)
+

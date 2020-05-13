@@ -164,6 +164,7 @@ class Car(pygame.sprite.Sprite):
         #     self.speed = speed
 
     def update_speed(self):
+        # self.speed = speed
         self.speed += self.acceleration
 
     def update(self, last_x, last_y, traffic_lamp_status, stone_status, flag):
@@ -172,6 +173,7 @@ class Car(pygame.sprite.Sprite):
         if self.current_nav_index < maps.FINISH_INDEX:
             way_dir = self.find_way_direction()
             self.change_dir(way_dir)
+            speed_new = self.speed
 
             if (flag % 10) == 0:
                 # distance_stone = self.calculate_distance_impediment(stone_status)
@@ -221,6 +223,9 @@ class Car(pygame.sprite.Sprite):
             self.update_speed()
 
         else:
-            self.set_speed(0)
+            self.set_speed(20)
         self.x = self.x + self.speed * math.cos(math.radians(270 - self.dir))
         self.y = self.y + self.speed * math.sin(math.radians(270 - self.dir))
+        # print(self.x , self.y ,"llll")
+        self.rect.topleft = self.x -60 , self.y -30
+        # self.rect.center = self.x + last_x - 600, self.y + last_y - 300
