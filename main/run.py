@@ -129,6 +129,8 @@ def main():
         traffic_lamps_status.append(lamp_status2)
         # update and render car
         cars.update(cam.x, cam.y, traffic_lamps_status, stone_status, flag)
+
+        # screen.blit(cars.sprites[-1],[cam.x, cam.y])
         cars.draw(screen)
 
         # --- Go ahead and update the screen with what we've drawn.
@@ -166,6 +168,10 @@ if __name__ == "__main__":
     background = pygame.Surface(screen.get_size())
     background = background.convert_alpha(background)
     background.fill((82, 86, 94))
+
+
+    # background = pygame.image.load("media/map2.png").convert()
+    screen.blit(background, (0, 0))
 
     # main loop
     main()
